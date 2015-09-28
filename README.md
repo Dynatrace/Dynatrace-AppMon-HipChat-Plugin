@@ -1,0 +1,2 @@
+# HipChat-Plugin
+HipChat Plugin
