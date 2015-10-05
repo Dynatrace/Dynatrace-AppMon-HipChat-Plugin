@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<!-- plugin.xml file written by dynaTrace Client 6.2.1 -->
+<plugin>
+  <extension point="com.dynatrace.diagnostics.pdk.pluginconfig" id="com.Dynatrace.HipChat" name="DynatraceHipChat">
+    <information>
+      <category value="" />
+      <displayname value="DynatraceHipChat" />
+      <description value="This Dynatrace plugin can send incident messages to a particular HipChat channel" />
+      <supportlevel value="unsupported" />
+    </information>
+    <configuration>
+      <property key="url" label="URL" type="url" description="URL of the HipChat channel where the incident message should be sent to. In order to get this URL, one needs to configure a particular HipChat channel to be able to receive external messages. This integration can easily be enabled in the HipChat web UI." default="" />
+    </configuration>
+  </extension>
+  <extension point="com.dynatrace.diagnostics.pdk.action" id="com.Dynatrace.HipChat.action" name="DynatraceHipChat">
+    <plugin configid="com.Dynatrace.HipChat" class="com.Dynatrace.HipChat" />
+  </extension>
+</plugin>
