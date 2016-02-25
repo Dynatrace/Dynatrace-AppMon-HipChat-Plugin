@@ -99,6 +99,9 @@ public class HipChat implements ActionV2 {
 			
 			//SET URL FROM USER INPUT FIELD
 			URL url = env.getConfigUrl("url");
+			
+			//Allow for HipChat notifications
+			boolean notify = env.getConfigBoolean("notify");
                         
                         //OPEN URL CONNECTION AND SET TIMEOUTS - USES CONNECTION METHOD 'POST'
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -150,7 +153,7 @@ public class HipChat implements ActionV2 {
                          */
 			jsonObj.put("color", "green");
 			jsonObj.put("message", chat_message);
-			jsonObj.put("notify", false);
+			jsonObj.put("notify", notify);
 			jsonObj.put("message_format", "html");
                         
                         
