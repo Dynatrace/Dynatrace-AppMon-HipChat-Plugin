@@ -13,7 +13,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
@@ -103,10 +102,6 @@ public class HipChat implements ActionV2 {
 			
 			//Allow for HipChat notifications
 			boolean notify = env.getConfigBoolean("notify");
-			
-			//Set report config
-			boolean report = env.getConfigBoolean("report");
-			String reportName = env.getConfigString("reportName");
                         
                         //OPEN URL CONNECTION AND SET TIMEOUTS - USES CONNECTION METHOD 'POST'
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -125,13 +120,7 @@ public class HipChat implements ActionV2 {
                         
                         // Compose string chat_message => This message will be sent to the HipChat channel
                         String chat_message = null;
-                        
-                        //check if incident opening or closing
-                        if (incident.getState() != 1) {
-                        	chat_message = "<strong>Dynatrace incident triggered:</strong> " + incident.getIncidentRule().getName();
-                        } else {
-                        	chat_message = "<strong>Dynatrace incident ended:</strong> " + incident.getIncidentRule().getName();         
-                        }
+                        chat_message = "<strong>Dynatrace incident triggered:</strong> " + incident.getIncidentRule().getName();
                         chat_message = chat_message + " <ul>";
                         chat_message = chat_message + "<li><strong>Incident UUID:</strong> " + incident.getKey().getUUID() + "</li>";
                         
@@ -151,15 +140,12 @@ public class HipChat implements ActionV2 {
 //                        chat_message = chat_message + "<li><strong>Status state code:</strong> " + incident.getState() + "</li>";
                         
                         chat_message = chat_message + "<li><strong>Severity:</strong> " + incident.getSeverity().toString() + "</li>";
-                        chat_message = chat_message + "<li><strong>Message:</strong> " + message + "</li>";
+                        chat_message = chat_message + "<li><strong>Message: </strong>: " + message + "</li>";
                         
                         for (Violation violation : incident.getViolations()) {
-                            chat_message = chat_message + "<li><strong>Violated Measure:</strong> " + violation.getViolatedMeasure().getName() + " <strong> - Threshold: </strong>" + violation.getViolatedThreshold().getValue() + "</li>";
+                            chat_message = chat_message + "<li><strong>Violated Measure: </strong>: " + violation.getViolatedMeasure().getName() + " <strong> - Threshold: </strong>" + violation.getViolatedThreshold().getValue() + "</li>";
 			}
-                        if (report) {
-                        	String reportUrl = "http://" + incident.getServerName() + "/rest/management/reports/create/" + URLEncoder.encode(reportName, "UTF-8").replaceAll("\\+", "%20");
-                        	chat_message = chat_message + "<li><strong>More Info:</strong> <a href=\"" +reportUrl+ "\">" +reportName+"</a></li>";
-                        }
+                        
                         chat_message = chat_message + "</ul>";
 			
                         /*

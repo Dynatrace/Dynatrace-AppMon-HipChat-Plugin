@@ -12,8 +12,14 @@
     <configuration>
       <property key="url" label="URL" type="url" description="URL of the HipChat channel where the incident message should be sent to. In order to get this URL, one needs to configure a particular HipChat channel to be able to receive external messages. This integration can easily be enabled in the HipChat web UI." default="" />
       <property key="notify" label="Enable Notifications" type="boolean" description="Allow for HipChat to notify users in chat room of alerts" default="false" />
-      <property key="report" label="Dashboard Link" type="boolean" description="Add link to dashboard in notification" default="false" />
-      <property key="reportName" label="Dashboard Name" type="string" description="Name of Dashboard to be added to notification" default="" multiline="false" />
+      <property key="report" label="Add Report" type="boolean" description="Add a dashboard link to notification" default="" />
+      <property key="protocol" label="Protocol" type="list" description="What protocol to use in the Report link" default="http">
+        <list>
+          <item value="http" />
+          <item value="https" />
+        </list>
+      </property>
+      <property key="reportName" label="Dashboard Name" type="string" description="Name of Dynatrace Dashboard to reference in URL" default="" multiline="false" />
     </configuration>
   </extension>
   <extension point="com.dynatrace.diagnostics.pdk.action" id="com.Dynatrace.HipChat.action" name="DynatraceHipChat">

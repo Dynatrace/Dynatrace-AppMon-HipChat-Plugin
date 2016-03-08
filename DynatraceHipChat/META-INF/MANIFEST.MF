@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-SymbolicName: com.Dynatrace.HipChat;singleton:=true
-Bundle-Version: 1.2.0
+Bundle-Version: 1.1.0
 Bundle-Name: DynatraceHipChat
 Bundle-ClassPath: .,lib/json-simple-1.1.1.jar
 Require-Bundle: com.dynatrace.diagnostics.sdk
